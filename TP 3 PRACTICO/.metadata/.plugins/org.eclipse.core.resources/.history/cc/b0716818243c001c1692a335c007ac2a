@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "LinkedList.h"
+#include "Employee.h"
+
+/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
+ *
+ * \param path char*
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
+int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
+{
+     char buffer[4][20];
+     Employee* lista;
+     Employee* pAuxEmpleado;
+     int cant = 0;
+
+     if(pFile == NULL)
+     {
+       printf("No se pudo abrir el archivo.\n");
+       exit(EXIT_FAILURE);
+     }
+
+     // Lectura fantasma
+    fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", buffer[0], buffer[1], buffer[2], buffer[3]);
+    //printf("%s   %s    %s    %s\n\n", buffer[0], buffer[1], buffer[2], buffer[3]);
+
+     while(!feof(pFile))
+    {
+        cant = fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", buffer[0], buffer[1], buffer[2], buffer[3]);
+        if( cant < 4){
+            break;
+          }
+        lista = new_EmpleadoParam(buffer[0], buffer[1],buffer[2],buffer[3]);
+        *(lista + cont) = *nuevoEmpleado;
+        cont++;
+        pAuxEmpleado = (eEmpleado*) realloc(lista, sizeof(eEmpleado) *(cont+1));
+        if(pAuxEmpleado == NULL){
+            exit(1);
+        }
+        lista = pAuxEmpleado;
+    }
+    return 1;
+}
+
+/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
+ *
+ * \param path char*
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
+int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
+{
+
+    return 1;
+}
